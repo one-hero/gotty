@@ -60,15 +60,16 @@ func (u *Upgrader) returnError(w http.ResponseWriter, r *http.Request, status in
 
 // checkSameOrigin returns true if the origin is not set or is equal to the request host.
 func checkSameOrigin(r *http.Request) bool {
-	origin := r.Header["Origin"]
-	if len(origin) == 0 {
-		return true
-	}
-	u, err := url.Parse(origin[0])
-	if err != nil {
-		return false
-	}
-	return u.Host == r.Host
+	//origin := r.Header["Origin"]
+	//if len(origin) == 0 {
+	//	return true
+	//}
+	//u, err := url.Parse(origin[0])
+	//if err != nil {
+	//	return false
+	//}
+	//return u.Host == r.Host
+	
 }
 
 func (u *Upgrader) selectSubprotocol(r *http.Request, responseHeader http.Header) string {
@@ -109,9 +110,9 @@ func (u *Upgrader) Upgrade(w http.ResponseWriter, r *http.Request, responseHeade
 	if checkOrigin == nil {
 		checkOrigin = checkSameOrigin
 	}
-	if !checkOrigin(r) {
-		return u.returnError(w, r, http.StatusForbidden, "websocket: origin not allowed")
-	}
+	//if !checkOrigin(r) {
+	//	return u.returnError(w, r, http.StatusForbidden, "websocket: origin not allowed")
+	//}
 
 	challengeKey := r.Header.Get("Sec-Websocket-Key")
 	if challengeKey == "" {
